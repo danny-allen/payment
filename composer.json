@@ -1,0 +1,19 @@
+{
+    "name": "danny-allen/payment",
+    "description": "Interface for Payment Gateways.",
+    "authors": [
+        {
+            "name": "Danny Allen",
+            "email": "danny@naaa.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DannyAllen\\": "src/"
+        }
+    }
+}

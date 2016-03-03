@@ -9,11 +9,11 @@
     "packages": [
         {
             "name": "dao/plug",
-            "version": "v1.0.4",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/danny-allen/plug.git",
-                "reference": "f828aa33ba9a49521c7b558e740597a10560f490"
+                "reference": "81183772f2a833229dcaf1beee85e761241e40c8"
             },
             "require": {
                 "php": ">=5.5.0"
@@ -31,15 +31,15 @@
                 }
             ],
             "description": "Sockets!",
-            "time": "2016-03-03 14:20:14"
+            "time": "2016-03-03 14:27:26"
         },
         {
             "name": "dao/xmlhandler",
-            "version": "v1.0.3",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/danny-allen/xmlhandler.git",
-                "reference": "743de0002c217c305f6eb6731a346dbf66b30244"
+                "reference": "8fbde181592badae0ad4136d98dad555d34bf8e7"
             },
             "require": {
                 "php": ">=5.5.0"
@@ -57,7 +57,7 @@
                 }
             ],
             "description": "XML Helpers.",
-            "time": "2016-03-03 14:19:47"
+            "time": "2016-03-03 14:27:54"
         }
     ],
     "packages-dev": [],

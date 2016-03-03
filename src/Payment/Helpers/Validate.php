@@ -1,6 +1,6 @@
 <?php
 
-namespace DannyAllen\Payment\Helpers;
+namespace Dao\Payment\Helpers;
 
 use Exception;
 

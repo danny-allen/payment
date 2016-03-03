@@ -6,11 +6,11 @@
  * 	- Only cares about Secure trading requests.
  */
 
-namespace DannyAllen\Payment\Gateways\SecureTrading\Requests;
+namespace Dao\Payment\Gateways\SecureTrading\Requests;
 
 use Exception;
 use DannyAllen\Plug;
-use DannyAllen\Payment\Helpers\Validate;
+use Dao\Payment\Helpers\Validate;
 
 abstract class Request {
 

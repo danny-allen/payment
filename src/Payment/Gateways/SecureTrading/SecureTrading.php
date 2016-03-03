@@ -6,11 +6,11 @@
  * 	- Does not care about the request type, as long as its a secure trading one.
  */
 
-namespace DannyAllen\Payment\Gateways\SecureTrading;
+namespace Dao\Payment\Gateways\SecureTrading;
 
 use Exception;
-use DannyAllen\Payment\Gateways\Gateway;
-use DannyAllen\Payment\Helpers\Validate;
+use Dao\Payment\Gateways\Gateway;
+use Dao\Payment\Helpers\Validate;
 
 class SecureTrading extends Gateway {
 
@@ -21,7 +21,7 @@ class SecureTrading extends Gateway {
 	 * 
 	 * @var string
 	 */
-	protected $requestNamespace = 'DannyAllen\\Payment\\Gateways\\SecureTrading\\Requests';
+	protected $requestNamespace = 'Dao\\Payment\\Gateways\\SecureTrading\\Requests';
 
 
 	/**

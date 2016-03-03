@@ -1,5 +1,5 @@
 {
-    "name": "danny-allen/payment",
+    "name": "dao/payment",
     "description": "Interface for Payment Gateways.",
     "authors": [
         {
@@ -25,7 +25,7 @@
     },
     "autoload": {
         "psr-4": {
-            "DannyAllen\\": "src/"
+            "Dao\\": "src/"
         }
     }
 }

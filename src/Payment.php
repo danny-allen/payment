@@ -6,10 +6,10 @@
  * 	- Cares about which methods are being used (top level)
  */
 
-namespace DannyAllen;
+namespace Dao;
 
 use Exception;
-use DannyAllen\Payment\Helpers\Validate;
+use Dao\Payment\Helpers\Validate;
 
 class Payment {
 
@@ -30,7 +30,7 @@ class Payment {
 	 * 
 	 * @var string
 	 */
-	protected $gatewayNamespace = "DannyAllen\\Payment\\Gateways\\";
+	protected $gatewayNamespace = "Dao\\Payment\\Gateways\\";
 
 
 	/**

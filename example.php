@@ -4,7 +4,7 @@
 	require_once('vendor/autoload.php');
 
 	//what we are using
-	use DannyAllen\Payment;
+	use Dao\Payment;
 
 	try {
 

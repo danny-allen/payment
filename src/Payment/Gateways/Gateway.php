@@ -6,10 +6,10 @@
  * 	- Does not care about what request is being called as long as it exists for the payment gateway.
  */
 
-namespace DannyAllen\Payment\Gateways;
+namespace Dao\Payment\Gateways;
 
 use Exception;
-use DannyAllen\Payment\Helpers\Validate;
+use Dao\Payment\Helpers\Validate;
 
 abstract class Gateway {
 
@@ -20,7 +20,7 @@ abstract class Gateway {
 	 * 
 	 * @var string
 	 */
-	protected $requestNamespace = 'DannyAllen\\Payment\\';
+	protected $requestNamespace = 'Dao\\Payment\\';
 
 
 	/**

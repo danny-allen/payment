@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1ba84ecf65b4e786db78e4be3b1c6d02",
-    "content-hash": "d6b6a5079c75dc9f9d1507da979fd502",
+    "hash": "70416f43f5676d59edadd1e0f5a89618",
+    "content-hash": "f69831d1916685915a0ac5293d88054a",
     "packages": [
         {
             "name": "danny-allen/plug",

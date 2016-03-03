@@ -9,7 +9,7 @@
 namespace Dao\Payment\Gateways\SecureTrading\Requests;
 
 use Exception;
-use DannyAllen\Plug;
+use Dao\Plug;
 use Dao\Payment\Helpers\Validate;
 
 abstract class Request {

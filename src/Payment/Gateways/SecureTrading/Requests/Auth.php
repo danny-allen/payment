@@ -10,7 +10,7 @@ namespace Dao\Payment\Gateways\SecureTrading\Requests;
 use Exception;
 use DOMDocument;
 use DateTime;
-use DannyAllen\XMLHandler;
+use Dao\XMLHandler;
 use Dao\Payment\Helpers\Validate;
 use Dao\Payment\Gateways\SecureTrading\Requests\Request;
 

@@ -9,11 +9,11 @@
     "packages": [
         {
             "name": "danny-allen/plug",
-            "version": "v1.0.1",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/danny-allen/plug.git",
-                "reference": "cb25996b48876ee2a58e80355b786a1190b26111"
+                "reference": "cbb34c416444bde9ed6fb66aa1f3b4c746351e69"
             },
             "require": {
                 "php": ">=5.5.0"
@@ -21,7 +21,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "DannyAllen\\": "src/"
+                    "Dao\\": "src/"
                 }
             },
             "authors": [
@@ -31,15 +31,15 @@
                 }
             ],
             "description": "Sockets!",
-            "time": "2016-03-03 10:28:26"
+            "time": "2016-03-03 14:07:02"
         },
         {
             "name": "danny-allen/xmlhandler",
-            "version": "v1.0",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/danny-allen/xmlhandler.git",
-                "reference": "5aa99203a0ed5ee2f9eb2d8c316e3df7135dd858"
+                "reference": "8f5814756ea280e921bab241d29f819a40b68658"
             },
             "require": {
                 "php": ">=5.5.0"
@@ -47,7 +47,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "DannyAllen\\": "src/"
+                    "Dao\\": "src/"
                 }
             },
             "authors": [
@@ -57,7 +57,7 @@
                 }
             ],
             "description": "XML Helpers.",
-            "time": "2016-03-02 14:02:51"
+            "time": "2016-03-03 14:06:44"
         }
     ],
     "packages-dev": [],

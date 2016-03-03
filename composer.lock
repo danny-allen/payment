@@ -4,11 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "70416f43f5676d59edadd1e0f5a89618",
-    "content-hash": "f69831d1916685915a0ac5293d88054a",
+    "hash": "1c0fc2e6a28bd2be51583f59e1d0c7dc",
+    "content-hash": "9f3fe63dc90c48a6469058dc1c030503",
     "packages": [
         {
-            "name": "danny-allen/plug",
+            "name": "dao/plug",
             "version": "v1.0.3",
             "source": {
                 "type": "git",
@@ -34,7 +34,7 @@
             "time": "2016-03-03 14:07:02"
         },
         {
-            "name": "danny-allen/xmlhandler",
+            "name": "dao/xmlhandler",
             "version": "v1.0.2",
             "source": {
                 "type": "git",

@@ -5,12 +5,12 @@
 	use DannyAllen\Payment;
 
 	//set params
-	$params['alias'] 					= 'some-alias';
-	$params['requesttype']				= 'AUTH';
-	$params['sitereference']			= $params['alias'];
-	$params['accounttypedescription']	= 'ECOM';
-	$params['currencycode']				= 'GBP';
-	$params['amount']					= '1';
+	// $params['alias'] 					= 'some-alias';
+	// $params['requesttype']				= 'AUTH';
+	// $params['sitereference']			= $params['alias'];
+	// $params['accounttypedescription']	= 'ECOM';
+	// $params['currencycode']				= 'GBP';
+	// $params['amount']					= '1';
 
 	try {
 
@@ -22,11 +22,11 @@
 
 		//options
 		$options = array(
-			'siteReference'				=> $params['alias'],
-			'amount'					=> '1',
-			'cardExpiry'				=> '01/16',
+			'amount'					=> 100,
+			'cardExpiry'				=> '05/16',
 			'cardPan'					=> '4111111111111111',
 			'cardSecurityCode'			=> '123',
+			'cardType'					=> 'VISA'
 		);
 
 		//request AUTH type transaction with options

@@ -4,9 +4,36 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b9700f796e8960dc43f6287dbe5dbd9c",
-    "content-hash": "c124361276b56d2c540eebdb80c8a9be",
-    "packages": [],
+    "hash": "8afca9dd9cc58b25b58f855692b23a2a",
+    "content-hash": "6e892f30652aa508e3f62c98ec0b4747",
+    "packages": [
+        {
+            "name": "danny-allen/xmlhandler",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/danny-allen/xmlhandler.git",
+                "reference": "5aa99203a0ed5ee2f9eb2d8c316e3df7135dd858"
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DannyAllen\\": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Danny Allen",
+                    "email": "danny@naaa.com"
+                }
+            ],
+            "description": "XML Helpers.",
+            "time": "2016-03-02 14:02:51"
+        }
+    ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",

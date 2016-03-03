@@ -27,6 +27,7 @@ class Validate {
 		return $string;
 	}
 
+
 	public static function int($int = null, $context = "this") {
 
 		//make sure context is a string
@@ -41,5 +42,21 @@ class Validate {
 
 		//return value
 		return $int;
+	}
+
+
+	public static function dom($dom = null, $context = "this"){
+
+		var_dump($dom);
+
+		//check for DOMDocument object
+		if(!isset($dom) || !is_a($dom, "DOMDocument")){
+
+			//if it doesnt exist, throw an error
+			throw new Exception($context.' needs to be a DOMDocument object.');
+		}
+
+		//return value
+		return $dom;
 	}
 }

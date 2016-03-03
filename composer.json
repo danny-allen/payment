@@ -8,8 +8,20 @@
         }
     ],
     "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/danny-allen/xmlhandler.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/danny-allen/plug.git"
+        }
+    ],
     "require": {
-        "php": ">=5.5.0"
+        "php": ">=5.5.0",
+        "danny-allen/xmlhandler": "1.*",
+        "danny-allen/plug": "1.*"
     },
     "autoload": {
         "psr-4": {

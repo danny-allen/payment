@@ -29,17 +29,9 @@ class Gateway {
 	 * 
 	 * @var string
 	 */
-	protected $errorPrefix = "Error: SecureTrading - ";
-
-	//need our settings declared - vars or array?
-	public $accountType = 'ECOM';
-	public $currencyCode = 'GBP';
+	protected $errorPrefix = "Error: ";
 
 
-
-	public function __construct($version = '3.67'){
-		//what we doing here? :/
-	}
 
 
 	/**
@@ -48,28 +40,28 @@ class Gateway {
 	 * Make a request via the Secure trading API
 	 * 
 	 * @param  string 	$type   	The type of request that needs to be made.
-	 * @param  complex 	$params 	
+	 * @param  complex 	$options 	
 	 * @return [type]         		[description]
 	 */
-	public function request($type, $params) {
+	public function request($type, $options) {
 
 		//make sure request type is available
-		$request = $this->_initiateRequest($type);
+		$request = $this->initiateRequest($type);
 
-		$response = "called";
+		$request->options($options);
 
 		//build the response
-		//$request->build($params);
+		$request->build($options);
 
 		//make the response
-		//$response = $request->make();
+		$response = $request->make();
 
 		return $response;
 	}
 
 
 	/**
-	 * _initiateRequest
+	 * initiateRequest
 	 *
 	 * Checks if the request type class exists. If so, it is instantiated and returned.
 	 * Otherwise an exception is thrown.
@@ -77,7 +69,7 @@ class Gateway {
 	 * @param  string $requestType 		The type of request to instantiate.
 	 * @return object 				    The class of the request type.
 	 */
-	public function _initiateRequest($requestType) {
+	public function initiateRequest($requestType) {
 
 		//validate the request type, make sure it's a string
 		Validate::string($requestType, $this->errorPrefix."request type");

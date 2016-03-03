@@ -7,7 +7,7 @@
             "email": "danny@naaa.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "repositories": [
         {
             "type": "git",

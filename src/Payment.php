@@ -61,10 +61,6 @@ class Payment {
 		}
 	}
 
-	public function status() {
-		return "Should be a response.";
-	}
-
 
 	/**
 	 * setting
@@ -102,23 +98,27 @@ class Payment {
 	 * whether it exists or not. The individual Payment Gateway can determine
 	 * this.
 	 * 
-	 * @param  string 	$request The name of the type of request to make.
-	 * @param  array  	$options array of options to pass to the request method.
+	 * @param  	string 		$request 	The name of the type of request to make.
+	 * @param  	array  		$options 	array of options to pass to the request method.
+	 * @param  	function  	$callback	Option callback function to handle the response.
+	 * @return  string 					Returns the response as a string if no callback is specified.
 	 */
-	public function request($request, $options = array()) {
-
-		$success = false;
+	public function request($request, $options = array(), $callback = null) {
 
 		//validate string
 		Validate::string($request, $this->errorPrefix.'request');
 
 		//make the request
-		$this->gateway->request($request, $options);
+		$response = $this->gateway->request($request, $options);
 
-		if($success){
-			return "Success Response (HC)";
+		//check for callback
+		if(is_callable($callback)){
+			//call callback with response.
+			$callback($response);
+
 		}else{
-			return false;
+			//else return the response
+			return $response;
 		}
 	}
 }

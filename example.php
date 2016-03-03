@@ -1,16 +1,10 @@
 <?php
 	
+	//autoloader
 	require_once('vendor/autoload.php');
 
+	//what we are using
 	use DannyAllen\Payment;
-
-	//set params
-	// $params['alias'] 					= 'some-alias';
-	// $params['requesttype']				= 'AUTH';
-	// $params['sitereference']			= $params['alias'];
-	// $params['accounttypedescription']	= 'ECOM';
-	// $params['currencycode']				= 'GBP';
-	// $params['amount']					= '1';
 
 	try {
 
@@ -29,10 +23,10 @@
 			'cardType'					=> 'VISA'
 		);
 
-		//request AUTH type transaction with options
-		if(!$payment->request('Auth', $options)){
-			throw new Exception($payment->status());
-		}
+		//make request, pass in callback to recieve the response.
+		$payment->request('Auth', $options, function($response){
+			echo $response;
+		});
 
 	} catch(Exception $e){
 

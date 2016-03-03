@@ -13,6 +13,7 @@ class Validate {
 	 * 
 	 * @param  string 	$string  	The string to check for.
 	 * @param  string 	$context 	The contect to display an error message in.
+	 * @return string  				The value validated.
 	 */
 	public static function string($string = null, $context = "this") {
 
@@ -28,6 +29,15 @@ class Validate {
 	}
 
 
+	/**
+	 * int
+	 *
+	 * Checks if the int value exists and is an actual integer.
+	 * 
+	 * @param  int 		$int  		The integer to check for.
+	 * @param  string 	$context 	The contect to display an error message in.
+	 * @return int  				The value validated.
+	 */
 	public static function int($int = null, $context = "this") {
 
 		//make sure context is a string
@@ -45,9 +55,43 @@ class Validate {
 	}
 
 
-	public static function dom($dom = null, $context = "this"){
+	/**
+	 * ip
+	 *
+	 * Checks if the ip value exists and is an actual ip address.
+	 * 
+	 * @param  string 	$ip  		The ip address to check.
+	 * @param  string 	$context 	The contect to display an error message in.
+	 * @return string  				The value validated.
+	 */
+	public static function ip($ip = null, $context) {
 
-		var_dump($dom);
+		//make sure context is a string
+		Self::string($context, 'context');
+
+		//check the gateway is a string
+		if(!isset($ip) || filter_var($ip, FILTER_VALIDATE_IP) === false){
+
+			//if it doesnt exist, throw an error
+			throw new Exception($context.' needs to be an ip address.');
+		}
+
+		//return value
+		return $ip;
+
+	}
+
+
+	/**
+	 * dom
+	 *
+	 * Checks if the dom value exists and is an actual dom object.
+	 * 
+	 * @param  object 	$dom  		The dom object to check.
+	 * @param  string 	$context 	The contect to display an error message in.
+	 * @return object  		 		The value validated.
+	 */
+	public static function dom($dom = null, $context = "this"){
 
 		//check for DOMDocument object
 		if(!isset($dom) || !is_a($dom, "DOMDocument")){

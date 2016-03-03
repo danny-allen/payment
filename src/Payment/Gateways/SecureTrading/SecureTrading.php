@@ -12,7 +12,7 @@ use Exception;
 use DannyAllen\Payment\Gateways\Gateway;
 use DannyAllen\Payment\Helpers\Validate;
 
-class SecureTrading extends Gateway{
+class SecureTrading extends Gateway {
 
 	/**
 	 * $requestNamespace
@@ -35,16 +35,6 @@ class SecureTrading extends Gateway{
 
 
 	/**
-	 * $accountType
-	 *
-	 * The default account type.
-	 * 
-	 * @var string
-	 */
-	protected $accountType = 'ECOM';
-
-
-	/**
 	 * $currencyCode
 	 *
 	 * The default currency code.
@@ -55,13 +45,62 @@ class SecureTrading extends Gateway{
 
 
 	/**
-	 * $alias
-	 * @var null
+	 * $apiIp
+	 *
+	 * The IP address the STAPI is running on.
+	 * 
+	 * @var string
 	 */
-	protected $alias = null;
+	protected $apiIp = '127.0.0.1';
 
 
+	/**
+	 * $apiPort
+	 *
+	 * The port number the STAPI is running on.
+	 * 
+	 * @var integer
+	 */
+	protected $apiPort = 5000;
+
+
+	/**
+	 * $apiVersion
+	 *
+	 * The version of the Secure trading API, being used.
+	 * 
+	 * @var string
+	 */
 	protected $apiVersion = '3.67';
+
+
+	/**
+	 * $alias
+	 *
+	 * The Secure Trading account alias.
+	 */
+	protected $alias;
+
+
+	/**
+	 * $accountType
+	 *
+	 * The default account type.
+	 * 
+	 * @var string
+	 */
+	protected $accountType = 'ECOM';
+
+
+	/**
+	 * $siteReference
+	 *
+	 * The site reference - alias will populate this, if left blank.
+	 *  
+	 * @var string
+	 */
+	protected $siteReference;
+
 
 
 	/**
@@ -76,28 +115,100 @@ class SecureTrading extends Gateway{
 	 */
 	public function request($type, $options) {
 
+		//validate properties
+		$this->validate();
+
 		//set the defaults here
 		$defaults = array(
-			'accountType' 	=> $this->accountType,
-			'currencyCode'	=> $this->currencyCode,
-			'apiVersion'	=> $this->apiVersion,
+			'apiIp'				=> $this->apiIp,
+			'apiPort'			=> $this->apiPort,
+			'apiVersion'		=> $this->apiVersion,
+			'alias'				=> $this->alias,
+			'accountType' 		=> $this->accountType,
+			'siteReference' 	=> $this->siteReference,
+			'currencyCode'		=> $this->currencyCode,
 		);
 
 		//merge the options
 		$options = array_merge($defaults, $options);
-
-		//validation here
-		$this->validateAlias();
-		$this->validateAccountType();
-		$this->validateApiVersion();
-		$this->validateSiteReference();
-		$this->validateCurrencyCode();
 
 		//call parent method with the merged options
 		Parent::request($type, $options);
 	}
 
 
+	/**
+	 * validate
+	 * 
+	 * Run all validation methods.
+	 */
+	public function validate() {
+
+		//call validate methods
+		$this->validateApiIp();
+		$this->validateApiPort();
+		$this->validateApiVersion();
+		$this->validateAlias();
+		$this->validateAccountType();
+		$this->validateSiteReference();
+		$this->validateCurrencyCode();
+	}
+
+
+	/**
+	 * validateApiIp
+	 *
+	 * Make sure the API IP address is a string.
+	 */
+	private function validateApiIp() {
+
+		//make sure it's a string
+		Validate::string($this->apiIp, $this->errorPrefix.'API IP');
+		Validate::ip($this->apiIp, $this->errorPrefix.'API IP');
+	}
+
+
+	/**
+	 * validateApiPort
+	 *
+	 * Make sure the port is an integer.
+	 */
+	private function validateApiPort() {
+
+		//make sure it's a string
+		Validate::int($this->apiPort, $this->errorPrefix.'API Port');
+	}
+
+
+	/**
+	 * validateApiVersion
+	 *
+	 * Api version must be a string.
+	 */
+	private function validateApiVersion() {
+
+		//make sure it's a string
+		Validate::string($this->alias, $this->errorPrefix.'api version');
+	}
+
+
+	/**
+	 * validateAlias
+	 *
+	 * Alias must be a string.
+	 */
+	private function validateAlias() {
+
+		//make sure it's a string
+		Validate::string($this->alias, $this->errorPrefix.'alias');
+	}
+
+
+	/**
+	 * validateAccountType
+	 *
+	 * Makes sure the account type if of the types in the allowed array.
+	 */
 	private function validateAccountType() {
 
 		//set allowed values
@@ -115,19 +226,11 @@ class SecureTrading extends Gateway{
 	}
 
 
-	private function validateAlias() {
-
-		//make sure it's a string
-		Validate::string($this->alias, $this->errorPrefix.'alias');
-	}
-
-
-	private function validateApiVersion() {
-
-		//make sure it's a string
-		Validate::string($this->alias, $this->errorPrefix.'api version');
-	}
-
+	/**
+	 * validateSiteReference
+	 *
+	 * If no site reference is set, use the alias. Either way, it must be a string.
+	 */
 	private function validateSiteReference() {
 
 		//ensure site reference is set - can be the alias if not defined
@@ -137,6 +240,12 @@ class SecureTrading extends Gateway{
 		Validate::string($this->siteReference, $this->errorPrefix.'site reference');
 	}
 
+
+	/**
+	 * validateCurrencyCode
+	 *
+	 * Currency code must be one of the allowed options. It must be a string.
+	 */
 	private function validateCurrencyCode() {
 
 		//set allowed values
@@ -160,6 +269,5 @@ class SecureTrading extends Gateway{
 		if(!in_array($this->currencyCode, $allowed)) {
 			throw new Exception($errorPrefix."currency code is not valid.");
 		}
-
 	}
 }

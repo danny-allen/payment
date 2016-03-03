@@ -4,9 +4,35 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8afca9dd9cc58b25b58f855692b23a2a",
-    "content-hash": "6e892f30652aa508e3f62c98ec0b4747",
+    "hash": "1ba84ecf65b4e786db78e4be3b1c6d02",
+    "content-hash": "d6b6a5079c75dc9f9d1507da979fd502",
     "packages": [
+        {
+            "name": "danny-allen/plug",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/danny-allen/plug.git",
+                "reference": "cb25996b48876ee2a58e80355b786a1190b26111"
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DannyAllen\\": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Danny Allen",
+                    "email": "danny@naaa.com"
+                }
+            ],
+            "description": "Sockets!",
+            "time": "2016-03-03 10:28:26"
+        },
         {
             "name": "danny-allen/xmlhandler",
             "version": "v1.0",

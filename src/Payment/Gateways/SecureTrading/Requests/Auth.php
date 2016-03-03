@@ -16,17 +16,63 @@ use DannyAllen\Payment\Gateways\SecureTrading\Requests\Request;
 
 class Auth extends Request {
 
-	protected $accountType;
-	protected $currencyCode;
-	protected $alias;
-	protected $apiVersion;
-	protected $requestType = 'AUTH';
-	protected $siteReference;
 
-	protected $amount = '0';
+	/**
+	 * $requestType
+	 *
+	 * The type of request to be made to Secure Trading.
+	 * 
+	 * @var string
+	 */
+	protected $requestType = 'AUTH';
+
+	/**
+	 * $amount
+	 *
+	 * The amount to be used in the transaction. It's passed in pence.
+	 * 
+	 * @var int
+	 */
+	protected $amount = 0;
+
+
+	/**
+	 * $cardExpiry
+	 *
+	 * The expiry date of the card expected as mm/yy.
+	 * 
+	 * @var string
+	 */
 	protected $cardExpiry;
+
+
+	/**
+	 * $cardPan
+	 *
+	 * The long card number expected as a string.
+	 * 
+	 * @var string
+	 */
 	protected $cardPan;
+
+
+	/**
+	 * $cardSecurityCode
+	 *
+	 * The 3/4 digit security code on the back of the card, expected as a string.
+	 * 
+	 * @var string
+	 */
 	protected $cardSecurityCode;
+
+
+	/**
+	 * $cardType
+	 *
+	 * The type of card. e.g VISA.
+	 * 
+	 * @var string
+	 */
 	protected $cardType;
 
 
@@ -41,6 +87,11 @@ class Auth extends Request {
 
 
 
+	/**
+	 * __construct
+	 *
+	 * Builds the initial XML document to add to for the request.
+	 */
 	public function __construct() {
 
 		//make the XML object
@@ -51,6 +102,13 @@ class Auth extends Request {
 	}
 
 
+	/**
+	 * build
+	 *
+	 * Build the main content into the Auth request XML.
+	 * 
+	 * @return string 	The XML to return.
+	 */
 	public function build() {
 
 		//firstly, run the validation method and make sure we have everything.
@@ -103,7 +161,6 @@ class Auth extends Request {
 	 * 
 	 * @param  XMLHandler 	$this->xml    	XMLHandler class to create the elements within.
 	 * @param  array     	$params 	The values we're populating the XML with.
-	 * 
 	 * @return object 					The node to add to the XML.
 	 */
 	private function _getOperationNode() {
@@ -125,14 +182,11 @@ class Auth extends Request {
 
 
 	/**
-	 * _getBillingNode description
+	 * _getBillingNode
 	 *
 	 * Creates the billing XML element with all its sub components.
 	 * 
-	 * @param  XMLHandler 	$this->xml    	XMLHandler class to create the elements within.
-	 * @param  array     	$params 	The values we're populating the XML with.
-	 * 
-	 * @return object 					The node to add to the XML.
+	 * @return object 	The node to add to the XML.
 	 */
 	private function _getBillingNode() {
 		
@@ -140,16 +194,6 @@ class Auth extends Request {
 		$billing 	= $this->xml->dom->createElement('billing');
 		$amount 	= $this->xml->dom->createElement('amount', $this->amount);
 		$payment 	= $this->xml->dom->createElement('payment');
-
-
-		//validate and set card attribute
-		if(!isset($this->cardExpiry)){
-			throw new Exception("Card date not valid.");
-		}
-
-		if(!isset($this->cardSecurityCode)){
-			throw new Exception("Card security code not valid.");	
-		}
 
 		//create child elements of payment node
 		$this->xml->createChildElements($payment, array(
@@ -164,11 +208,6 @@ class Auth extends Request {
 		//set attributes on currency code
 		$amount->setAttribute('currencycode', 'GBP');
 
-		//validate and set card attribute
-		// if(!isset($this->cardType) || !$this->validatePaymenttype($this->cardType)){
-		// 	throw new Exception("Card type not valid.");
-		// }
-
 		$payment->setAttribute('type', $this->cardType);
 
 		//add to billing element
@@ -181,6 +220,12 @@ class Auth extends Request {
 		return $billing;
 	}
 
+
+	/**
+	 * validate
+	 *
+	 * Runs all validation methods.
+	 */
 	public function validate() {
 
 		//run the validation methods
@@ -190,17 +235,13 @@ class Auth extends Request {
 		$this->validateCardPan();
 		$this->validateCardSecurityCode();
 		$this->validateCardType();
-
 	}
-
 
 
 	/**
 	 * validateAccountType
 	 *
-	 * 
-	 * 
-	 * @return [type] [description]
+	 * Checks account type is ECOM.
 	 */
 	private function validateAccountType() {
 
@@ -217,13 +258,10 @@ class Auth extends Request {
 	}
 
 
-
 	/**
 	 * validateAmount
-	 * 
 	 *
-	 * 
-	 * @return [type] [description]
+	 * Checks the amount is an int.
 	 */
 	private function validateAmount() {
 		Validate::int($this->amount, $this->errorPrefix.'amount');
@@ -231,11 +269,9 @@ class Auth extends Request {
 
 
 	/**
-	 * validateAmount
+	 * validateCardExpiry
 	 * 
-	 *
-	 * 
-	 * @return [type] [description]
+	 * Checks the card expiry is in the future and is valid.
 	 */
 	private function validateCardExpiry() {
 
@@ -259,11 +295,9 @@ class Auth extends Request {
 
 
 	/**
-	 * validateAmount
-	 * 
+	 * validateCardPan
 	 *
-	 * 
-	 * @return [type] [description]
+	 * Checks the long card number is a string.
 	 */
 	private function validateCardPan() {
 
@@ -273,11 +307,9 @@ class Auth extends Request {
 
 
 	/**
-	 * validateAmount
-	 * 
+	 * validateCardSecurityCode
 	 *
-	 * 
-	 * @return [type] [description]
+	 * Checks the security code is a string.
 	 */
 	private function validateCardSecurityCode() {
 
@@ -288,11 +320,9 @@ class Auth extends Request {
 
 
 	/**
-	 * validateAmount
+	 * validateCardType
 	 *
-	 * 
-	 * 
-	 * @return [type] [description]
+	 * Checks the card type matches one of the allowed values, and that its a string.
 	 */
 	private function validateCardType() {
 

@@ -11,7 +11,7 @@ namespace DannyAllen\Payment\Gateways;
 use Exception;
 use DannyAllen\Payment\Helpers\Validate;
 
-class Gateway {
+abstract class Gateway {
 
 	/**
 	 * $requestNamespace
@@ -21,6 +21,7 @@ class Gateway {
 	 * @var string
 	 */
 	protected $requestNamespace = 'DannyAllen\\Payment\\';
+
 
 	/**
 	 * $errorPrefix
@@ -33,29 +34,30 @@ class Gateway {
 
 
 
-
 	/**
 	 * request
 	 *
 	 * Make a request via the Secure trading API
 	 * 
 	 * @param  string 	$type   	The type of request that needs to be made.
-	 * @param  complex 	$options 	
-	 * @return [type]         		[description]
+	 * @param  complex 	$options 	the options to store against the request object.
+	 * @return string         		The response from the request object.
 	 */
 	public function request($type, $options) {
 
 		//make sure request type is available
 		$request = $this->initiateRequest($type);
 
+		//set options for request
 		$request->options($options);
 
 		//build the response
-		$request->build($options);
+		$request->build();
 
 		//make the response
 		$response = $request->make();
 
+		//return the response from the request
 		return $response;
 	}
 
@@ -66,7 +68,7 @@ class Gateway {
 	 * Checks if the request type class exists. If so, it is instantiated and returned.
 	 * Otherwise an exception is thrown.
 	 * 
-	 * @param  string $requestType 		The type of request to instantiate.
+	 * @param  string 	$requestType 	The type of request to instantiate.
 	 * @return object 				    The class of the request type.
 	 */
 	public function initiateRequest($requestType) {
@@ -84,7 +86,7 @@ class Gateway {
 			throw new Exception($this->errorPrefix.'request type unknown.');
 		}
 
-		//instantiate the request
+		//return the instantiated request
 		return $request = new $class();
 	}
 
@@ -94,9 +96,8 @@ class Gateway {
 	 * setting
 	 *
 	 * Regsiter a setting and value pair against this object.
-	 * @param  [type] $option [description]
-	 * @param  [type] $value  [description]
-	 * @return [type]         [description]
+	 * @param  string 	$option 	Name of the option to add to the Gateway object.
+	 * @param  complex 	$value  	The value to be stored against the option.
 	 */
 	public function setting($option = null, $value) {
 

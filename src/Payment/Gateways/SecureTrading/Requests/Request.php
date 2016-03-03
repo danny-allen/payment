@@ -12,13 +12,147 @@ use Exception;
 use DannyAllen\Plug;
 use DannyAllen\Payment\Helpers\Validate;
 
-class Request{
+abstract class Request {
+
+	/**
+	 * $alias
+	 *
+	 * Secure Trading account alias.
+	 *
+	 * @var string
+	 */
+	protected $alias;
 
 
-	protected $errorPrefix = "Error: SecureTrading - ";
+	/**
+	 * $siteReference
+	 *
+	 * Secure Trading site reference.
+	 *
+	 * @var string
+	 */
+	protected $siteReference;
+
+
+	/**
+	 * $apiIp
+	 *
+	 * The IP address the STAPI is running on.
+	 * 
+	 * @var string
+	 */
+	protected $apiIp = '127.0.0.1';
+
+
+	/**
+	 * $apiPort
+	 *
+	 * The port number the STAPI is running on.
+	 * 
+	 * @var integer
+	 */
+	protected $apiPort = 5000;
+
+
+	/**
+	 * $apiVersion
+	 *
+	 * Secure Trading API version.
+	 *
+	 * @var string
+	 */
+	protected $apiVersion;
+
+
+	/**
+	 * $currencyCode
+	 *
+	 * Type of currency used for the request.
+	 *
+	 * @var string
+	 */
+	protected $currencyCode;
+
+
+	/**
+	 * $accountType
+	 *
+	 * Type of account making the request (ECOM).
+	 *
+	 * @var string
+	 */
+	protected $accountType;
+
+
+	/**
+	 * $requestXML
+	 *
+	 * The XML to be returned.
+	 * 
+	 * @var string
+	 */
 	protected $requestXML;
 
 
+	/**
+	 * $errorPrefix
+	 *
+	 * Message to prefix to errors.
+	 * 
+	 * @var string
+	 */
+	protected $errorPrefix = "Error: SecureTrading - ";
+
+
+
+	/**
+	 * build
+	 *
+	 * Request objects must declare the build method. This builds the XML.
+	 * 
+	 * @return string  	The XML to return.
+	 */
+	abstract public function build();
+
+
+	/**
+	 * options
+	 *
+	 * Only allow options to be set if the property exists on the class inheriting.
+	 * 
+	 * @param  array 	$options 	The options to check for.
+	 */
+	public function options($options) {
+
+		//loop the options and add them to the object
+		foreach($options as $option => $value){
+
+			//check option is a string
+			Validate::string($option);
+
+			//get the child class, to check properties against
+			$class = get_class($this);
+			
+			//check property value
+			if(property_exists($class, $option) || property_exists($this, $option)){
+				$this->{$option} = $value;
+
+
+			}else{
+				//property does not exist, either in the parent or the extending class.
+				throw new Exception('The '.(string) $option.' property does not exist.');
+			}
+		}
+	}
+
+
+	/**
+	 * make
+	 *
+	 * Make the request. Write the XML generated from the build function to the socket.
+	 * 
+	 * @return string  	The output from the socket, based on the data sent.
+	 */
 	public function make() {
 
 		//check for request XML
@@ -29,89 +163,19 @@ class Request{
 		//make sure the request XML is a string - it should be by this point.
 		Validate::string($this->requestXML);
 
-
-
 		//instantiate a plug - creates a socket.
 		$plug = new Plug();
 
 		//connect the plug.
-		$plug->connect('127.0.0.1', 5000);
+		$plug->connect($this->apiIp, $this->apiPort);
 
 		//switch it on and get the output.
 		$output = $plug->on($this->requestXML);
 
 		//switch it off, we're done.
 		$plug->off();
-
-
-
-		die('got here - make');
-		// open socket and send request.
 		
-		// This is from the class settings
-		$address = $this->api_ip;
-		$service_port = $this->api_port;
-		
-		$data = '';
-		
-		socket_write($socket, $request, strlen($request));
-		
-		while ($out = socket_read($socket, 2048)) {
-		    $data .= $out;
-		}
-		socket_close($socket);
-		
-		return $data;
-	}
-
-
-	private function socketConnect() {
-		
-		// echo "Attempting to connect to '$address' on port '$service_port'...";
-		$result = @socket_connect($socket, $address, $service_port);
-		if ($result === false) {
-		     throw new Exception("socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)));
-		}
-
-	}
-
-
-	private function socketCreate() {
-		
-		/* Create a TCP/IP socket. */
-		$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-
-		if ($socket === false) {
-		    throw new Exception("socket_create() failed: reason: " . socket_strerror(socket_last_error()));
-		}
-	}
-
-
-
-
-
-
-	public function options($options) {
-
-		foreach($options as $option => $value){
-
-			//get the child class, to check properties against
-			$class = get_class($this);
-
-			//check option is a string
-			Validate::string($option);
-			
-			//check property value
-			if(property_exists($class, $option)){
-				$this->{$option} = $value;
-			}else{
-				throw new Exception('The '.(string) $option.' property does not exist.');
-			}
-		}
-
-		//$this->validateOptions();
-	}
-
-
-	
+		//return the response from the socket
+		return $output;
+	}	
 }

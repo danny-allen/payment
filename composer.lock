@@ -4,16 +4,16 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1633f2893addce54ad9d5ddfb5c693f9",
-    "content-hash": "91754051ad6cc86a9bce4e81c67461f1",
+    "hash": "19344e93fe59c71b931d5b0206642b08",
+    "content-hash": "5500f35cfd2362f6900ef17f0996bef1",
     "packages": [
         {
             "name": "dao/plug",
-            "version": "v1.0.5",
+            "version": "v1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/danny-allen/plug.git",
-                "reference": "81183772f2a833229dcaf1beee85e761241e40c8"
+                "reference": "de39a29816f43bf317d076987079886d60a4e1a5"
             },
             "require": {
                 "php": ">=5.5.0"
@@ -31,15 +31,15 @@
                 }
             ],
             "description": "Sockets!",
-            "time": "2016-03-03 14:27:26"
+            "time": "2016-03-03 14:35:42"
         },
         {
             "name": "dao/xmlhandler",
-            "version": "v1.0.4",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/danny-allen/xmlhandler.git",
-                "reference": "8fbde181592badae0ad4136d98dad555d34bf8e7"
+                "reference": "e209eca5d54e6503e83c427e2dae76ff16e05246"
             },
             "require": {
                 "php": ">=5.5.0"
@@ -57,12 +57,12 @@
                 }
             ],
             "description": "XML Helpers.",
-            "time": "2016-03-03 14:27:54"
+            "time": "2016-03-03 14:35:54"
         }
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,

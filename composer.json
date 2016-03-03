@@ -20,8 +20,8 @@
     ],
     "require": {
         "php": ">=5.5.0",
-        "danny-allen/xmlhandler": "1.*",
-        "danny-allen/plug": "1.*"
+        "dao/xmlhandler": "1.*",
+        "dao/plug": "1.*"
     },
     "autoload": {
         "psr-4": {

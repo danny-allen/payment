@@ -68,8 +68,8 @@ abstract class Gateway {
 	 * Checks if the request type class exists. If so, it is instantiated and returned.
 	 * Otherwise an exception is thrown.
 	 * 
-	 * @param  string 	$requestType 	The type of request to instantiate.
-	 * @return object 				    The class of the request type.
+	 * @param  string	$requestType	The type of request to instantiate.
+	 * @return object 					The class of the request type.
 	 */
 	public function initiateRequest($requestType) {
 
@@ -77,7 +77,7 @@ abstract class Gateway {
 		Validate::string($requestType, $this->errorPrefix."request type");
 
 		//set the class name we're looking for
-		$class = $this->requestNamespace."\\".$requestType;
+		$class = $this->requestNamespace . "\\" . $requestType . "\\" . $requestType;
 
 		//check if the class exists
 		if(!class_exists($class)) {

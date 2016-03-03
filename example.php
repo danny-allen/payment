@@ -11,6 +11,14 @@
 		//set up new payment with gateway
 		$payment = new Payment('SecureTrading');
 
+		//work in test mode
+		$payment->test = true;
+
+		// //test condition
+		// $payment->testConditions(array(
+		// 	'success' => true
+		// ));
+
 		//configure
 		$payment->setting('alias', 'some-alias');
 

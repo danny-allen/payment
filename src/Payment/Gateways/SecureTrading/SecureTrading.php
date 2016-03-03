@@ -132,8 +132,8 @@ class SecureTrading extends Gateway {
 		//merge the options
 		$options = array_merge($defaults, $options);
 
-		//call parent method with the merged options
-		Parent::request($type, $options);
+		//call parent method with the merged options and return it
+		return Parent::request($type, $options);
 	}
 
 

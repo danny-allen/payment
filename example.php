@@ -11,6 +11,9 @@
 		//set up new payment with gateway
 		$payment = new Payment('SecureTrading');
 
+		//debug mode
+		$payment->debug = true;
+
 		//configure
 		$payment->setting('alias', 'some-alias');
 

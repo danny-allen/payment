@@ -34,6 +34,16 @@ class Payment {
 	protected $gatewayNamespace = "Dao\\Payment\\Gateways\\";
 
 
+	/**
+	 * $debug
+	 *
+	 * Whether or not we're in debug mode.
+	 * 
+	 * @var boolean
+	 */
+	public $debug = false;
+
+
 
 	/**
 	 * __construct
@@ -102,6 +112,9 @@ class Payment {
 	 * @return complex  				Function or string. If it's a function, the gateway response is passed as param.
 	 */
 	public function make($callback = null){
+
+		//set debug
+		$this->gateway->debug = $this->debug;
 
 		//make the request to the gatway endpoint.
 		$response = $this->gateway->sendRequest();

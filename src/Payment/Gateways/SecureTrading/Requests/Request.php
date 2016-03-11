@@ -15,6 +15,18 @@ use Dao\Payment\Helpers\Validate;
 
 class Request {
 
+
+	/**
+	 * $debug
+	 *
+	 * Whether or not we're in debug mode.
+	 * 
+	 * @var boolean
+	 */
+	public $debug = false;
+
+	
+	
 	public function __construct($options) {
 		$this->options = $options;
 	}
@@ -49,6 +61,15 @@ class Request {
 
 		//set xml
 		$this->xml = $xml;
+
+		if($this->debug){
+
+			//we're expecting xml
+			$this->setHeaders('text/xml');
+			echo $this->xml;
+			die();
+
+		}
 
 		//check for request XML
 		if(!isset($this->xml)){

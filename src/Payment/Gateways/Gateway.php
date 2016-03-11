@@ -44,6 +44,16 @@ abstract class Gateway {
 	private $newRequest = true;
 
 
+	/**
+	 * $debug
+	 *
+	 * Whether or not we're in debug mode.
+	 * 
+	 * @var boolean
+	 */
+	public $debug = false;
+
+
 
 	/**
 	 * request
@@ -104,6 +114,9 @@ abstract class Gateway {
 
 		//make the request
 		$request = new Request($this->settings);
+
+		//set debug
+		$request->debug = $this->debug;
 
 		//allow new requests again
 		$this->newRequest = true;

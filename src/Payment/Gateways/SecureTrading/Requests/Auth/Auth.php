@@ -9,12 +9,13 @@ namespace Dao\Payment\Gateways\SecureTrading\Requests\Auth;
 
 use Exception;
 use DOMDocument;
+use DOMElement;
 use DateTime;
 use Dao\XMLHandler;
 use Dao\Payment\Helpers\Validate;
-use Dao\Payment\Gateways\SecureTrading\Requests\Request;
+use Dao\Payment\Gateways\SecureTrading\Requests\Base;
 
-class Auth extends Request {
+class Auth extends Base {
 
 
 	/**
@@ -92,13 +93,9 @@ class Auth extends Request {
 	 *
 	 * Builds the initial XML document to add to for the request.
 	 */
-	public function __construct() {
-
-		//make the XML object
-		$this->dom = new DOMDocument('1.0', 'utf-8');
-
-		//make the XML object
-		$this->xml = new XMLHandler($this->dom);
+	public function __construct($base) {
+		$this->base = $base;
+		$this->xml = $this->base->xml;
 	}
 
 
@@ -111,46 +108,25 @@ class Auth extends Request {
 	 */
 	public function build() {
 
-		//firstly, run the validation method and make sure we have everything.
-		$this->validate();
+		$this->requestblock = $this->xml->dom->getElementsByTagName('requestblock')->item(0);
 
-		//requestblock attributes
-		$requestblock 	= $this->xml->dom->createElement('requestblock');
-		$requestblock->setAttribute('version', $this->apiVersion);
+		//create the operation nodes
+		$this->request = new DOMElement('request');
+		$this->requestblock->appendChild($this->request);
 
-		//alias node
-		$alias = $this->xml->dom->createElement('alias', $this->alias);
-		
 		//get nodes
 		$operation 	= $this->_getOperationNode();
 		$billing 	= $this->_getBillingNode();
-		$request 	= $this->xml->dom->createElement('request');
 
 		//set attributes of request node
-		$request->setAttribute('type', $this->requestType);
+		$this->request->setAttribute('type', $this->requestType);
 
 		//add child elements of request
-		$this->xml->createChildElements($request, array(
-			'operation' => $operation,
-			'billing'	=> $billing
-		));
+		$this->request->appendChild($operation);
+		$this->request->appendChild($billing);
 
-		//create request block with children
-		$this->xml->createChildElements($requestblock, array(
-			'alias' 	=> $alias,
-			'request' 	=> $request
-		));
-
-		//add the request block to the dom object
-		$this->xml->createChildElements($this->dom, array(
-			'requestblock' => $requestblock
-		));
-
-		//store the request XML
-		$this->requestXML = $this->xml->dom->saveXML();
-
-		//return it.
-		return $this->requestXML;
+		//save
+		return $this->base;
 	}
 
 
@@ -165,16 +141,18 @@ class Auth extends Request {
 	 */
 	private function _getOperationNode() {
 
-		//create the operation nodes
-		$operation 				= $this->xml->dom->createElement('operation');
-		$siteReference 			= $this->xml->dom->createElement('sitereference', $this->siteReference);
-		$accountType			= $this->xml->dom->createElement('accounttypedescription', $this->accountType);
 
-		//add to billing element
-		$this->xml->createChildElements($operation, array(
-			'sitereference' 			=> $siteReference,
-			'accounttype' 	=> $accountType
-		));
+		//create the operation nodes
+		$operation 				= new DOMElement('operation');
+		$siteReference 			= new DOMElement('sitereference', $this->siteReference);
+		$accountType			= new DOMElement('accounttypedescription', $this->accountType);
+
+		
+		$this->requestblock->appendChild($operation);
+
+		//add child elements of request
+		$operation->appendChild($siteReference);
+		$operation->appendChild($accountType);
 
 		//return operation
 		return $operation;
@@ -191,30 +169,33 @@ class Auth extends Request {
 	private function _getBillingNode() {
 		
 		//create the billing nodes
-		$billing 	= $this->xml->dom->createElement('billing');
-		$amount 	= $this->xml->dom->createElement('amount', $this->amount);
-		$payment 	= $this->xml->dom->createElement('payment');
+		$billing 	= new DOMElement('billing');
+		$amount 	= new DOMElement('amount', $this->amount);
+		$payment 	= new DOMElement('payment');
+
+		
+		$this->requestblock->appendChild($billing);
+
+		//append to billing
+		$billing->appendChild($payment);
+		$billing->appendChild($amount);
+
+		//create the billing nodes
+		$expirydate 	= new DOMElement('expirydate', $this->cardExpiry);
+		$pan 		 	= new DOMElement('pan', $this->cardPan);
+		$securitycode	= new DOMElement('securitycode', $this->cardSecurityCode);
 
 		//create child elements of payment node
-		$this->xml->createChildElements($payment, array(
-			'expirydate' 	=> (string) $this->cardExpiry,
-			'pan'			=> $this->cardPan,
-			'securitycode'	=> $this->cardSecurityCode,
-		));
+		$payment->appendChild($expirydate);
+		$payment->appendChild($pan);
+		$payment->appendChild($securitycode);
 
-		//set attributes on currency code
-		$payment->setAttribute('type', 'GBP');
+		//set payment attributes on currency code
+		$payment->setAttribute('currency', 'GBP');
+		$payment->setAttribute('type', $this->cardType);
 
 		//set attributes on currency code
 		$amount->setAttribute('currencycode', 'GBP');
-
-		$payment->setAttribute('type', $this->cardType);
-
-		//add to billing element
-		$this->xml->createChildElements($billing, array(
-			'amount' 	=> $amount,
-			'payment' 	=> $payment
-		));
 
 		//return billing element
 		return $billing;
@@ -275,6 +256,8 @@ class Auth extends Request {
 	 */
 	private function validateCardExpiry() {
 
+		$this->cardExpiry;
+
 		//check it's a string
 		Validate::string($this->cardExpiry, $this->errorPrefix.'card expiry');
 		
@@ -315,7 +298,6 @@ class Auth extends Request {
 
 		//check it's a string
 		Validate::string($this->cardSecurityCode, $this->errorPrefix.'card security code');
-
 	}
 
 

@@ -10,6 +10,7 @@ namespace Dao\Payment\Gateways;
 
 use Exception;
 use Dao\Payment\Helpers\Validate;
+use Dao\Payment\Gateways\SecureTrading\Requests\Request;
 
 abstract class Gateway {
 
@@ -33,6 +34,11 @@ abstract class Gateway {
 	protected $errorPrefix = "Error: ";
 
 
+	private $newRequest = true;
+
+
+
+
 
 	/**
 	 * request
@@ -45,39 +51,79 @@ abstract class Gateway {
 	 */
 	public function request($type, $options) {
 
+		//get new template request if new
+		if($this->newRequest){
+
+			//get a base request
+			$this->base = $this->getRequest();
+
+			//set the options (from settings)
+			$this->base->options($this->settings);
+
+			//validate the options
+			$this->base->validate();
+
+			//build the base xml
+			$this->base->build();
+
+			//dont allow this to happen again untill we're done with this request
+			$this->newRequest = false;
+		}
+
 		//make sure request type is available
-		$request = $this->initiateRequest($type);
+		$childRequest = $this->getRequest($type, $this->base); 
 
 		//set options for request
-		$request->options($options);
+		$childRequest->options($options);
 
-		//build the response
-		$request->build();
+		//validate the options
+		$childRequest->validate();
 
-		//make the response
-		$response = $request->make();
+		//build the request
+		$this->base = $childRequest->build();
+	}
 
-		//return the response from the request
-		return $response;
+
+
+
+	public function sendRequest() {
+
+		//get the output
+		$requestQuery = $this->base->output();
+
+		//make the request
+		$request = new Request($this->settings);
+		$request->make($requestQuery);
+
+		//allow new requests again
+		$this->newRequest = true;
 	}
 
 
 	/**
-	 * initiateRequest
+	 * getRequest
 	 *
 	 * Checks if the request type class exists. If so, it is instantiated and returned.
 	 * Otherwise an exception is thrown.
 	 * 
 	 * @param  string	$requestType	The type of request to instantiate.
+	 * @param  string	$params			The params to instantiate the request with
 	 * @return object 					The class of the request type.
 	 */
-	public function initiateRequest($requestType) {
+	public function getRequest($requestType = 'Base', $params = null) {
 
 		//validate the request type, make sure it's a string
 		Validate::string($requestType, $this->errorPrefix."request type");
 
-		//set the class name we're looking for
-		$class = $this->requestNamespace . "\\" . $requestType . "\\" . $requestType;
+		if($requestType == 'Base'){
+
+			//set the class name we're looking for
+			$class = $this->requestNamespace . "\\Base";
+		}else{
+
+			//set the class name we're looking for
+			$class = $this->requestNamespace . "\\" . $requestType . "\\" . $requestType;
+		}
 
 		//check if the class exists
 		if(!class_exists($class)) {
@@ -86,8 +132,8 @@ abstract class Gateway {
 			throw new Exception($this->errorPrefix.'request type unknown.');
 		}
 
-		//return the instantiated request
-		return $request = new $class();
+		//return the instantiated request, passing in the base XML
+		return new $class($params);
 	}
 
 
@@ -96,15 +142,17 @@ abstract class Gateway {
 	 * setting
 	 *
 	 * Regsiter a setting and value pair against this object.
-	 * @param  string 	$option 	Name of the option to add to the Gateway object.
-	 * @param  complex 	$value  	The value to be stored against the option.
+	 * 
+	 * @param  string 	$setting 	Name of the setting to add to the Gateway object.
+	 * @param  complex 	$value  	The value to be stored against the setting.
 	 */
-	public function setting($option = null, $value) {
+	public function setting($setting = null, $value) {
 
 		//validate string
-		Validate::string($option, $this->errorPrefix."option");
+		Validate::string($setting, $this->errorPrefix."setting");
 
-		//add the option
-		$this->{$option} = $value;
+		//add the setting
+		$this->settings[$setting] = $value;
 	}
+
 }

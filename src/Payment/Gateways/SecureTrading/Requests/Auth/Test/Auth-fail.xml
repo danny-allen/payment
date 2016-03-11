@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<responseblock version="3.67">
+    <requestreference>Fwghytr4h</requestreference>
+    <response type="AUTH">
+        <merchant>
+            <merchantname>The Merchant Name</merchantname>
+            <orderreference>Example AUTH</orderreference>
+            <tid>94736456</tid>
+            <merchantnumber>987654456785675</merchantnumber>
+            <merchantcountryiso2a>GB</merchantcountryiso2a>
+    
+        </merchant>
+        <transactionreference>9-2-53765436</transactionreference>
+        <timestamp>2016-02-12 14:57:47</timestamp>
+        <acquirerresponsecode>14</acquirerresponsecode>
+        <operation>
+            <splitfinalnumber>1</splitfinalnumber>
+            <accounttypedescription>ECOM</accounttypedescription>
+    
+        </operation>
+        <settlement>
+            <settleduedate>2016-02-12</settleduedate>
+            <settlestatus>3</settlestatus>
+    
+        </settlement>
+        <billing>
+            <amount currencycode="GBP">1</amount>
+            <payment type="VISA">
+                <pan>411111######0211</pan>
+                <issuercountry>ZZ</issuercountry>
+      
+            </payment>
+    
+        </billing>
+        <authcode>INVALID CARD</authcode>
+        <live>1</live>
+        <error>
+            <message>Decline</message>
+            <code>7000</code>
+    
+        </error>
+        <security>
+            <postcode>0</postcode>
+            <securitycode>1</securitycode>
+            <address>0</address>
+    
+        </security>
+  
+    </response>
+    <secrand>584Fjd</secrand>
+
+</responseblock>

@@ -7,6 +7,29 @@ use Exception;
 class Validate {
 
 	/**
+	 * boolean
+	 *
+	 * Checks if the boolean value exists and is an actual boolean.
+	 * 
+	 * @param  boolean 	$boolean  	The boolean to check for.
+	 * @param  string 	$context 	The contect to display an error message in.
+	 * @return boolean  				The value validated.
+	 */
+	public static function boolean($boolean = null, $context = "this") {
+
+		//check the gateway is a boolean
+		if(!isset($boolean) || !is_bool($boolean)){
+
+			//if it doesnt exist, throw an error
+			throw new Exception($context.' needs to be a boolean value.');
+		}
+
+		//return value
+		return $boolean;
+	}
+
+
+	/**
 	 * string
 	 *
 	 * Checks if the string value exists and is an actual string.

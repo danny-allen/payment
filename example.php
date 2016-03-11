@@ -11,30 +11,25 @@
 		//set up new payment with gateway
 		$payment = new Payment('SecureTrading');
 
-		//work in test mode
-		$payment->test = true;
-
-		// //test condition
-		// $payment->testConditions(array(
-		// 	'success' => true
-		// ));
-
 		//configure
 		$payment->setting('alias', 'some-alias');
 
-		//options
-		$options = array(
+		//prepare request, pass in callback to recieve the response.
+		$payment->request('Auth', array(
 			'amount'					=> 100,
 			'cardExpiry'				=> '05/16',
 			'cardPan'					=> '4111111111111111',
 			'cardSecurityCode'			=> '123',
 			'cardType'					=> 'VISA'
-		);
+		));
 
-		//make request, pass in callback to recieve the response.
-		$payment->request('Auth', $options, function($response){
-			echo $response;
-		});
+		//we want an immediate refund on the payment
+		$payment->request('Refund', array(
+			'amount' => 100
+		));
+
+		//make request
+		echo $response = $payment->make();
 
 	} catch(Exception $e){
 

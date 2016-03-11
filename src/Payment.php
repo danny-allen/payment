@@ -13,6 +13,7 @@ use Dao\Payment\Helpers\Validate;
 
 class Payment {
 
+
 	/**
 	 * $errorPrefix
 	 * 
@@ -31,6 +32,7 @@ class Payment {
 	 * @var string
 	 */
 	protected $gatewayNamespace = "Dao\\Payment\\Gateways\\";
+
 
 
 	/**
@@ -67,11 +69,11 @@ class Payment {
 	 *
 	 * Add a setting.
 	 * 
-	 * @param  string 		$option 	The setting name.
+	 * @param  string 		$setting 	The setting name.
 	 * @param  complex  	$value  	The value to store against the setting name.
 	 */
-	public function setting($option, $value = null) {
-		$this->gateway->setting($option, $value);
+	public function setting($setting, $value = null) {
+		$this->gateway->setting($setting, $value);
 	}
 
 
@@ -80,14 +82,33 @@ class Payment {
 	 *
 	 * Add settings in bulk.
 	 * 
-	 * @param  array  $options The options to add. Uses the setting method.
+	 * @param  array  $settings The settings to add. Uses the setting method.
 	 */
-	public function settings(array $options) {
+	public function settings(array $settings) {
 		
 		//add multiple settings
-		foreach ($options as $option => $value){
-			$this->setting($option, $value);
+		foreach ($settings as $setting => $value){
+			$this->setting($setting, $value);
 		}
+	}
+
+
+	public function make($callback = null){
+
+		//make the request to the gatway endpoint.
+		$response = $this->gateway->sendRequest();
+
+		//check for callback
+		if(is_callable($callback)){
+
+			//call callback with response.
+			$callback($response);
+
+		}else{
+			//else return the response
+			return $response;
+		}
+
 	}
 
 
@@ -103,22 +124,12 @@ class Payment {
 	 * @param  	function  	$callback	Option callback function to handle the response.
 	 * @return  string 					Returns the response as a string if no callback is specified.
 	 */
-	public function request($request, $options = array(), $callback = null) {
+	public function request($request, $options = array()) {
 
 		//validate string
 		Validate::string($request, $this->errorPrefix.'request');
 
 		//make the request
-		$response = $this->gateway->request($request, $options);
-
-		//check for callback
-		if(is_callable($callback)){
-			//call callback with response.
-			$callback($response);
-
-		}else{
-			//else return the response
-			return $response;
-		}
+		$this->gateway->request($request, $options);
 	}
 }

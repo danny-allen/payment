@@ -102,6 +102,33 @@ class SecureTrading extends Gateway {
 	protected $siteReference;
 
 
+	/**
+	 * $settings
+	 *
+	 * Settings for the gateway to be available on all requests.
+	 * 
+	 * @var array
+	 */
+	protected $settings = array();
+
+
+	/**
+	 * __construct
+	 *
+	 * Defines the default settings
+	 */
+	public function __construct() {
+
+		//set defaults
+		$this->settings = array(
+			'apiIp'			=> $this->apiIp,
+			'apiPort' 		=> $this->apiPort,
+			'apiVersion' 	=> $this->apiVersion,
+			'alias'			=> $this->alias,
+			'accountType'	=> $this->accountType,
+		);
+	}
+
 
 	/**
 	 * request
@@ -132,8 +159,11 @@ class SecureTrading extends Gateway {
 		//merge the options
 		$options = array_merge($defaults, $options);
 
-		//call parent method with the merged options and return it
-		return Parent::request($type, $options);
+		//merge the options
+		$options = array_merge($options, $this->settings);
+
+		//call parent method with the merged options
+		Parent::request($type, $options);
 	}
 
 
@@ -163,8 +193,8 @@ class SecureTrading extends Gateway {
 	private function validateApiIp() {
 
 		//make sure it's a string
-		Validate::string($this->apiIp, $this->errorPrefix.'API IP');
-		Validate::ip($this->apiIp, $this->errorPrefix.'API IP');
+		Validate::string($this->settings['apiIp'], $this->errorPrefix.'API IP');
+		Validate::ip($this->settings['apiIp'], $this->errorPrefix.'API IP');
 	}
 
 
@@ -176,7 +206,7 @@ class SecureTrading extends Gateway {
 	private function validateApiPort() {
 
 		//make sure it's a string
-		Validate::int($this->apiPort, $this->errorPrefix.'API Port');
+		Validate::int($this->settings['apiPort'], $this->errorPrefix.'API Port');
 	}
 
 
@@ -188,7 +218,7 @@ class SecureTrading extends Gateway {
 	private function validateApiVersion() {
 
 		//make sure it's a string
-		Validate::string($this->alias, $this->errorPrefix.'api version');
+		Validate::string($this->settings['apiVersion'], $this->errorPrefix.'api version');
 	}
 
 
@@ -200,7 +230,7 @@ class SecureTrading extends Gateway {
 	private function validateAlias() {
 
 		//make sure it's a string
-		Validate::string($this->alias, $this->errorPrefix.'alias');
+		Validate::string($this->settings['alias'], $this->errorPrefix.'alias');
 	}
 
 
@@ -234,10 +264,10 @@ class SecureTrading extends Gateway {
 	private function validateSiteReference() {
 
 		//ensure site reference is set - can be the alias if not defined
-		$this->siteReference = (!isset($this->siteReference))? $this->alias : $this->siteReference;
+		$this->settings['siteReference'] = (!isset($this->settings['siteReference']))? $this->settings['alias'] : $this->settings['siteReference'];
 
 		//make sure it's a string
-		Validate::string($this->siteReference, $this->errorPrefix.'site reference');
+		Validate::string($this->settings['siteReference'], $this->errorPrefix.'site reference');
 	}
 
 

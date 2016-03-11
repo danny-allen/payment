@@ -1,0 +1,15 @@
+<requestblock version="3.67">
+	<alias>site12345</alias>
+	<request type="REFUND">
+		<merchant>
+			<orderreference>REFUND_VISA</orderreference>
+		</merchant>
+		<billing>
+			<amount>100</amount>
+		</billing>
+		<operation>
+			<sitereference>site12345</sitereference>
+			<parenttransactionreference>17-9-5</parenttransactionreference>
+		</operation>
+	</request>
+</requestblock>

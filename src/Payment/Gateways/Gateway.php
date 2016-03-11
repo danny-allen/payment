@@ -104,10 +104,12 @@ abstract class Gateway {
 
 		//make the request
 		$request = new Request($this->settings);
-		$request->make($requestQuery);
 
 		//allow new requests again
 		$this->newRequest = true;
+
+		//return the request
+		return $request->make($requestQuery);
 	}
 
 

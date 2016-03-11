@@ -164,5 +164,4 @@ abstract class Gateway {
 		//add the setting
 		$this->settings[$setting] = $value;
 	}
-
 }

@@ -34,9 +34,14 @@ abstract class Gateway {
 	protected $errorPrefix = "Error: ";
 
 
+	/**
+	 * $newRequest
+	 *
+	 * Determines if we're dealing with a new set of requests.
+	 * 
+	 * @var boolean
+	 */
 	private $newRequest = true;
-
-
 
 
 
@@ -84,8 +89,14 @@ abstract class Gateway {
 	}
 
 
-
-
+	/**
+	 * sendRequest
+	 *
+	 * All sub requests have been retrieved, and can now be sent.
+	 *
+	 * Afterwards, we set newRequest to true, so that a new transaction can be made,
+	 * if required (not yet tested!).
+	 */
 	public function sendRequest() {
 
 		//get the output
@@ -135,7 +146,6 @@ abstract class Gateway {
 		//return the instantiated request, passing in the base XML
 		return new $class($params);
 	}
-
 
 
 	/**

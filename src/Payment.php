@@ -93,6 +93,14 @@ class Payment {
 	}
 
 
+	/**
+	 * make
+	 *
+	 * Perform the request to the gateway.
+	 * 
+	 * @param  function 	$callback 	Option callback function.
+	 * @return complex  				Function or string. If it's a function, the gateway response is passed as param.
+	 */
 	public function make($callback = null){
 
 		//make the request to the gatway endpoint.

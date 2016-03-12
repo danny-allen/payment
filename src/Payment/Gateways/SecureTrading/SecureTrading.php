@@ -162,8 +162,29 @@ class SecureTrading extends Gateway {
 		//merge the options
 		$options = array_merge($options, $this->settings);
 
-		//call parent method with the merged options
-		return Parent::request($type, $options);
+		//set error code
+		$errorCode = 0;
+
+		do{
+			//avoid the first loop, and only runs on 20004 - missing parent
+			//ST documentation recommends calling again in a few mins on this error, 10 seconds seems to work
+			if($errorCode == '20004'){
+			
+				//wait before trying again
+				sleep(10);
+			}
+
+			//call parent method with the merged options
+			$result = Parent::request($type, $options);
+
+			//get error
+			$error = $result->error();
+			$errorCode = $error->code();
+		}
+		while($errorCode == '20004');
+
+		//return result
+		return $result;
 	}
 
 

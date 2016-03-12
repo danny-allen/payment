@@ -9,7 +9,7 @@
 namespace Dao\Payment\Gateways\SecureTrading\Response;
 
 use Exception;
-use Dao\DOMDocument;
+use DOMDocument;
 use Dao\Payment\Helpers\Validate;
 use Dao\Payment\Gateways\SecureTrading\Response\Error;
 

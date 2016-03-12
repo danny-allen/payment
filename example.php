@@ -26,7 +26,7 @@
 		));
 
 		//get transaction reference
-		$transactionReference = $auth->transactionReference();
+		echo $transactionReference = $auth->transactionReference();
 
 		//check for error
 		if($error = $auth->error()){
@@ -40,7 +40,7 @@
 		));
 
 		//get transaction reference
-		$transactionReference = $refund->transactionReference();
+		echo $transactionReference = $refund->transactionReference();
 
 		//check for error
 		if($error = $refund->error()){

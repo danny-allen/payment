@@ -185,7 +185,7 @@ class SecureTrading extends Gateway {
 				$errorCode = $error->code();
 			}
 		}
-		while($errorCode == '20004' || $errorCode == '20005');
+		while($errorCode == '20004');
 
 		//return result
 		return $result;

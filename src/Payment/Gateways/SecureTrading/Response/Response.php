@@ -47,7 +47,7 @@ class Response {
 		//check for fail, 0 = success
 		if($errorCode !== "0"){
 			$message = $errors->item(0)->getElementsByTagName('message')->item(0)->nodeValue;
-			$error = new Error($errorCode , $message);
+			$error = new Error(intval($errorCode) , $message);
 			return $error;
 		}else {
 			return false;

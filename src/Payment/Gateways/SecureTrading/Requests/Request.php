@@ -62,6 +62,9 @@ class Request {
 		//set xml
 		$this->xml = $xml;
 
+		var_dump($this->xml);
+		die('deadus');
+
 		//check deug
 		if($this->debug){
 
@@ -93,9 +96,6 @@ class Request {
 
 		//we're expecting xml
 		$this->setHeaders('text/xml');
-
-		var_dump($output);
-		die('deadus');
 		
 		//return the response from the socket
 		return $output;

@@ -12,7 +12,7 @@
 		$payment = new Payment('SecureTrading');
 
 		//debug mode
-		//$payment->debug = true;
+		$payment->debug = true;
 
 		//configure
 		$payment->setting('alias', 'test_royalhotel36271');

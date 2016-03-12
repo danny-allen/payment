@@ -89,9 +89,6 @@ abstract class Gateway {
 
 		//build the request
 		$this->base = $childRequest->build();
-
-		//send request
-		$this->sendRequest();
 	}
 
 
@@ -121,14 +118,6 @@ abstract class Gateway {
 		return $this->request->make($requestQuery);
 	}
 
-
-	/**
-	 * [close description]
-	 * @return [type] [description]
-	 */
-	public function close() {
-		$this->request->done();
-	}
 
 
 	/**

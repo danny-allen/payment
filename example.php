@@ -15,7 +15,7 @@
 		$payment->setting('alias', 'some-alias');
 
 		//prepare request, pass in callback to recieve the response.
-		$response = $payment->request('Auth', array(
+		$payment->request('Auth', array(
 			'amount'					=> 100,
 			'cardExpiry'				=> '05/16',
 			'cardPan'					=> '4111111111111111',
@@ -23,13 +23,14 @@
 			'cardType'					=> 'VISA'
 		));
 
+		//make request
+		echo $response = $payment->make();
+
 		// //we want an immediate refund on the payment
 		// $payment->request('Refund', array(
 		// 	'amount' => 100
 		// ));
-
-		//make request
-		echo $response = $payment->make();
+		// 
 
 	} catch(Exception $e){
 

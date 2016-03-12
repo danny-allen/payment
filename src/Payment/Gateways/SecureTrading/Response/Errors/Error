@@ -6,7 +6,7 @@
  * 	- Only cares about Secure trading Responses.
  */
 
-namespace Dao\Payment\Gateways\SecureTrading\Response\Error;
+namespace Dao\Payment\Gateways\SecureTrading\Response\Errors;
 
 use Exception;
 use Dao\Payment\Helpers\Validate;

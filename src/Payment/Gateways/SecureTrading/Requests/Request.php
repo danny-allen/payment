@@ -85,11 +85,10 @@ class Request {
 		//connect the plug.
 		$this->plug->connect($this->options['apiIp'], $this->options['apiPort']);
 
-		var_dump($this->xml);
-		die('deadus');
-
 		//switch it on and get the output.
 		$output = $this->plug->on($this->xml);
+		var_dump($this->xml);
+		die('deadus');
 
 		//switch it off, we're done.
 		$this->plug->off();

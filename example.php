@@ -27,9 +27,9 @@
 		));
 
 		//we want an immediate refund on the payment
-		$payment->request('Refund', array(
-			'amount' => 100
-		));
+		// $payment->request('Refund', array(
+		// 	'amount' => 100
+		// ));
 
 		//make request
 		echo $response = $payment->make();

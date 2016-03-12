@@ -118,6 +118,11 @@ abstract class Gateway {
 		return $this->request->make($requestQuery);
 	}
 
+
+	/**
+	 * [close description]
+	 * @return [type] [description]
+	 */
 	public function close() {
 		$this->request->done();
 	}

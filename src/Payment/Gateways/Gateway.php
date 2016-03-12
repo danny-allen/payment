@@ -121,6 +121,9 @@ abstract class Gateway {
 		//get result
 		$result = $this->request->make($requestQuery);
 
+		var_dump($result);
+		die('laaa');
+
 		//return the request
 		return $response = new Response($result);
 	}

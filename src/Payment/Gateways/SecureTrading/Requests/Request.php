@@ -87,14 +87,9 @@ class Request {
 
 		//switch it on and get the output.
 		$output = $this->plug->on($this->xml);
-		var_dump($output);
-		die('deadus');
 
 		//switch it off, we're done.
 		$this->plug->off();
-
-		//we're expecting xml
-		$this->setHeaders('text/xml');
 		
 		//return the response from the socket
 		return $output;

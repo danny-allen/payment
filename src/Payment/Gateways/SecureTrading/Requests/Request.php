@@ -87,7 +87,7 @@ class Request {
 
 		//switch it on and get the output.
 		$output = $this->plug->on($this->xml);
-		var_dump($this->xml);
+		var_dump($output);
 		die('deadus');
 
 		//switch it off, we're done.

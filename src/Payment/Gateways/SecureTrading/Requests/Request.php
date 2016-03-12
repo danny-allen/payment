@@ -79,29 +79,22 @@ class Request {
 		//make sure the request XML is a string - it should be by this point.
 		Validate::string($this->xml);
 
-		//only make a new connection if one doesnt exist
-		if(!isset($this->plug)){
+		//instantiate a plug - creates a socket.
+		$this->plug = new Plug();
 
-			//instantiate a plug - creates a socket.
-			$this->plug = new Plug();
-
-			//connect the plug.
-			$this->plug->connect($this->options['apiIp'], $this->options['apiPort']);
-		}
+		//connect the plug.
+		$this->plug->connect($this->options['apiIp'], $this->options['apiPort']);
 
 		//switch it on and get the output.
 		$output = $this->plug->on($this->xml);
+
+		//switch it off, we're done.
+		$this->plug->off();
 
 		//we're expecting xml
 		$this->setHeaders('text/xml');
 		
 		//return the response from the socket
 		return $output;
-	}
-
-	public function done() {
-
-		//switch it off, we're done.
-		$this->plug->off();
 	}
 }

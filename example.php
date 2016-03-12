@@ -31,16 +31,24 @@
 		//check for error
 		if($error = $auth->error()){
 			throw new Exception('Error Code: ' . $error->code() . " - " . $error->message());
-		}else{
-			var_dump($transactionReference);
 		}
 
-		// //we want an immediate refund on the payment
-		// $payment->request('Refund', array(
-		// 	'amount' => 100,
-		// 	'parenttransactionreference' => $transactionReference
-		// ));
-		// 
+		//we want an immediate refund on the payment
+		$refund = $payment->request('Refund', array(
+			'amount' => 100,
+			'parenttransactionreference' => $transactionReference
+		));
+
+		//get transaction reference
+		$transactionReference = $refund->transactionReference();
+
+		//check for error
+		if($error = $refund->error()){
+			throw new Exception('Error Code: ' . $error->code() . " - " . $error->message());
+		}
+
+		echo $transactionReference;
+		
 
 	} catch(Exception $e){
 

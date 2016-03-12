@@ -11,11 +11,8 @@
 		//set up new payment with gateway
 		$payment = new Payment('SecureTrading');
 
-		//debug mode
-		$payment->debug = true;
-
 		//configure
-		$payment->setting('alias', 'test_royalhotel36271');
+		$payment->setting('alias', 'some-alias');
 
 		//prepare request, pass in callback to recieve the response.
 		$response = $payment->request('Auth', array(
@@ -26,18 +23,13 @@
 			'cardType'					=> 'VISA'
 		));
 
-		echo $resposne;
-
-		//we want an immediate refund on the payment
+		// //we want an immediate refund on the payment
 		// $payment->request('Refund', array(
 		// 	'amount' => 100
 		// ));
 
 		//make request
-		//echo $response = $payment->make();
-
-		//close connection - important!
-		$payment->done();
+		echo $response = $payment->make();
 
 	} catch(Exception $e){
 

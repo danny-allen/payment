@@ -158,6 +158,6 @@ class Payment {
 		Validate::string($request, $this->errorPrefix.'request');
 
 		//make the request
-		$this->gateway->request($request, $options);
+		return $this->gateway->request($request, $options);
 	}
 }

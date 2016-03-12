@@ -93,6 +93,9 @@ class Request {
 
 		//we're expecting xml
 		$this->setHeaders('text/xml');
+
+		var_dump($output);
+		die('deadus');
 		
 		//return the response from the socket
 		return $output;

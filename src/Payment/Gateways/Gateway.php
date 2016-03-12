@@ -89,6 +89,9 @@ abstract class Gateway {
 
 		//build the request
 		$this->base = $childRequest->build();
+
+		//send request
+		$this->sendRequest();
 	}
 
 

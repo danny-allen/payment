@@ -25,6 +25,9 @@
 			'cardType'					=> 'VISA'
 		));
 
+		var_dump($auth);
+		die('lala');
+
 		//get transaction reference
 		$transactionReference = $auth->transactionReference();
 

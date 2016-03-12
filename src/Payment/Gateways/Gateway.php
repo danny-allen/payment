@@ -93,7 +93,7 @@ abstract class Gateway {
 
 		//send the request
 		$response = $this->sendRequest();
-		var_dump($response);
+		var_dump($response->transactionReference());
 		die('laaa');
 		
 		//return the response

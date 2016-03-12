@@ -27,13 +27,13 @@ class Response {
 		//parse response
 		//how the XML should have been read through this app *sigh*
 		$this->dom = new DOMDocument();
-		$this->loadXML($this->response);
+		$this->dom->loadXML($this->response);
 	}
 
 	public function transactionReference() {
 
 		//find the transaction ref
-		$node = $dom->getElementsByTagName('transactionreference');
+		$node = $this->dom->getElementsByTagName('transactionreference');
 
 		//return it
 		return ($node->length > 0)? $node->item(0)->nodeValue : null;
@@ -41,7 +41,7 @@ class Response {
 
 	public function error() {
 
-		$errors 	= $dom->getElementsByTagName('error'); //should always exist - even on success
+		$errors 	= $this->dom->getElementsByTagName('error'); //should always exist - even on success
 		$errorCode 	= $errors->item(0)->getElementsByTagName('code')->item(0)->nodeValue; //0 on success
 		
 		//check for fail, 0 = success

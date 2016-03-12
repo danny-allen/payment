@@ -32,7 +32,7 @@
 		if($error = $auth->error()){
 			throw new Exception('Error Code: ' . $error->code() . " - " . $error->message());
 		}else{
-			echo $transactionReference;
+			var_dump($transactionReference);
 		}
 
 		// //we want an immediate refund on the payment

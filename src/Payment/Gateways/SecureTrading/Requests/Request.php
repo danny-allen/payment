@@ -62,9 +62,6 @@ class Request {
 		//set xml
 		$this->xml = $xml;
 
-		var_dump($this->xml);
-		die('deadus');
-
 		//check deug
 		if($this->debug){
 
@@ -73,6 +70,9 @@ class Request {
 			echo $this->xml;
 			die();
 		}
+
+		var_dump($this->xml);
+		die('deadus');
 
 		//check for request XML
 		if(!isset($this->xml)){

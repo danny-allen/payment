@@ -34,10 +34,21 @@
 		}
 
 		//we want an immediate refund on the payment
-		$refund = $payment->request('Refund', array(
-			'amount' => 100,
-			'parenttransactionreference' => $transactionReference
-		));
+		 
+		$errorCode = 0;
+		do{
+			$refund = $payment->request('Refund', array(
+				'amount' => 100,
+				'parenttransactionreference' => $transactionReference
+			));
+
+			$error = $refund->error();
+			$errorCode = $error->code();
+			
+			//wait before trying again
+			sleep(10);
+		}
+		while($errorCode == '20004');
 
 		//get transaction reference
 		echo $transactionReference = $refund->transactionReference();

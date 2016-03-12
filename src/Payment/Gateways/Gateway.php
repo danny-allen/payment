@@ -11,6 +11,7 @@ namespace Dao\Payment\Gateways;
 use Exception;
 use Dao\Payment\Helpers\Validate;
 use Dao\Payment\Gateways\SecureTrading\Requests\Request;
+use Dao\Payment\Gateways\SecureTrading\Response\Response;
 
 abstract class Gateway {
 
@@ -89,6 +90,9 @@ abstract class Gateway {
 
 		//build the request
 		$this->base = $childRequest->build();
+
+		//send the request
+		return $this->sendRequest();
 	}
 
 
@@ -114,8 +118,11 @@ abstract class Gateway {
 		//allow new requests again
 		$this->newRequest = true;
 
+		//get result
+		$result = $this->request->make($requestQuery);
+
 		//return the request
-		return $this->request->make($requestQuery);
+		return $response = new Response($result);
 	}
 
 

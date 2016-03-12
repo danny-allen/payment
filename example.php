@@ -17,7 +17,7 @@
 		$payment->setting('alias', 'test_royalhotel36271');
 
 		//prepare request, pass in callback to recieve the response.
-		$payment->request('Auth', array(
+		$auth = $payment->request('Auth', array(
 			'amount'					=> 100,
 			'cardExpiry'				=> '05/16',
 			'cardPan'					=> '4111111111111111',
@@ -25,12 +25,18 @@
 			'cardType'					=> 'VISA'
 		));
 
-		//make request
-		echo $response = $payment->make();
+		//get transaction reference
+		$transactionReference = $auth->transactionReference();
+
+		//check for error
+		if($error = $auth->error()){
+			throw new Exception('Error Code: ' . $error->code() . " - " . $error->message());
+		}
 
 		// //we want an immediate refund on the payment
 		// $payment->request('Refund', array(
-		// 	'amount' => 100
+		// 	'amount' => 100,
+		// 	'parenttransactionreference' => $transactionReference
 		// ));
 		// 
 

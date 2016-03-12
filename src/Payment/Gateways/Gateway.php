@@ -92,7 +92,12 @@ abstract class Gateway {
 		$this->base = $childRequest->build();
 
 		//send the request
-		return $this->sendRequest();
+		$response = $this->sendRequest();
+		var_dump($response);
+		die('laaa');
+		
+		//return the response
+		return $response;
 	}
 
 
@@ -120,9 +125,6 @@ abstract class Gateway {
 
 		//get result
 		$result = $this->request->make($requestQuery);
-
-		var_dump($result);
-		die('laaa');
 
 		//return the request
 		return $response = new Response($result);

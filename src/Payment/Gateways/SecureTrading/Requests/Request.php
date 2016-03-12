@@ -71,9 +71,6 @@ class Request {
 			die();
 		}
 
-		var_dump($this->xml);
-		die('deadus');
-
 		//check for request XML
 		if(!isset($this->xml)){
 			throw new Exception($this->errorPrefix."requestXML is empty.");
@@ -87,6 +84,9 @@ class Request {
 
 		//connect the plug.
 		$this->plug->connect($this->options['apiIp'], $this->options['apiPort']);
+
+		var_dump($this->xml);
+		die('deadus');
 
 		//switch it on and get the output.
 		$output = $this->plug->on($this->xml);

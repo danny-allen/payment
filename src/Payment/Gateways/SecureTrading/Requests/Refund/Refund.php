@@ -39,6 +39,19 @@ class Refund extends Base {
 
 
 	/**
+	 * $amount
+	 *
+	 * The amount to be used in the transaction. It's passed in pence.
+	 * 
+	 * @var int
+	 */
+	protected $parenttransactionreference;
+
+
+
+
+
+	/**
 	 * $errorPrefix
 	 * 
 	 * Prefix for error messages.
@@ -104,14 +117,19 @@ class Refund extends Base {
 		$operation 					= new DOMElement('operation');
 		$siteReference 				= new DOMElement('sitereference', $this->siteReference);
 		$accountType				= new DOMElement('accounttypedescription', $this->accountType);
-		$parenttransactionreference = new DOMElement('parenttransactionreference');
-		$this->request->appendChild($operation);
 
+		//add operation node
+		$this->request->appendChild($operation);
 
 		//add to billing element
 		$operation->appendChild($siteReference);
 		$operation->appendChild($accountType);
-		$operation->appendChild($parenttransactionreference);
+
+		//if there is a parent transaction, add it
+		if(isset($this->parenttransactionreference)){
+			$parenttransactionreference = new DOMElement('parenttransactionreference', $this->parenttransactionreference);
+			$operation->appendChild($parenttransactionreference);
+		}
 
 		//return operation
 		return $operation;
@@ -128,6 +146,7 @@ class Refund extends Base {
 		//run the validation methods
 		$this->validateAccountType();
 		$this->validateAmount();
+		$this->validateParenttransactionreference();
 	}
 
 
@@ -158,5 +177,17 @@ class Refund extends Base {
 	 */
 	private function validateAmount() {
 		Validate::int($this->amount, $this->errorPrefix.'amount');
+	}
+
+
+	/**
+	 * validateParenttransactionreference
+	 *
+	 * If transaction reference is set, make sure it's a string.
+	 */
+	private function validateParenttransactionreference() {
+		if(isset($parenttransactionreference)){
+			Validate::string($parenttransactionreference);
+		}
 	}
 }

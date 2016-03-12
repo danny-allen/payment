@@ -15,7 +15,7 @@
 		//$payment->debug = true;
 
 		//configure
-		$payment->setting('alias', 'some-alias');
+		$payment->setting('alias', 'test_royalhotel36271');
 
 		//prepare request, pass in callback to recieve the response.
 		$payment->request('Auth', array(

@@ -66,24 +66,17 @@ abstract class Gateway {
 	 */
 	public function request($type, $options) {
 
-		//get new template request if new
-		if($this->newRequest){
+		//get a base request
+		$this->base = $this->getRequest();
 
-			//get a base request
-			$this->base = $this->getRequest();
+		//set the options (from settings)
+		$this->base->options($this->settings);
 
-			//set the options (from settings)
-			$this->base->options($this->settings);
+		//validate the options
+		$this->base->validate();
 
-			//validate the options
-			$this->base->validate();
-
-			//build the base xml
-			$this->base->build();
-
-			//dont allow this to happen again untill we're done with this request
-			$this->newRequest = false;
-		}
+		//build the base xml
+		$this->base->build();
 
 		//make sure request type is available
 		$childRequest = $this->getRequest($type, $this->base); 
@@ -113,16 +106,20 @@ abstract class Gateway {
 		$requestQuery = $this->base->output();
 
 		//make the request
-		$request = new Request($this->settings);
+		$this->request = new Request($this->settings);
 
 		//set debug
-		$request->debug = $this->debug;
+		$this->request->debug = $this->debug;
 
 		//allow new requests again
 		$this->newRequest = true;
 
 		//return the request
-		return $request->make($requestQuery);
+		return $this->request->make($requestQuery);
+	}
+
+	public function close() {
+		$this->request->done();
 	}
 
 

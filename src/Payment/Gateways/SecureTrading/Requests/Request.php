@@ -25,8 +25,8 @@ class Request {
 	 */
 	public $debug = false;
 
-	
-	
+
+
 	public function __construct($options) {
 		$this->options = $options;
 	}
@@ -62,13 +62,13 @@ class Request {
 		//set xml
 		$this->xml = $xml;
 
+		//check deug
 		if($this->debug){
 
 			//we're expecting xml
 			$this->setHeaders('text/xml');
 			echo $this->xml;
 			die();
-
 		}
 
 		//check for request XML
@@ -79,22 +79,29 @@ class Request {
 		//make sure the request XML is a string - it should be by this point.
 		Validate::string($this->xml);
 
-		//instantiate a plug - creates a socket.
-		$plug = new Plug();
+		//only make a new connection if one doesnt exist
+		if(!isset($this->plug)){
 
-		//connect the plug.
-		$plug->connect($this->options['apiIp'], $this->options['apiPort']);
+			//instantiate a plug - creates a socket.
+			$this->plug = new Plug();
+
+			//connect the plug.
+			$this->plug->connect($this->options['apiIp'], $this->options['apiPort']);
+		}
 
 		//switch it on and get the output.
-		$output = $plug->on($this->xml);
-
-		//switch it off, we're done.
-		$plug->off();
+		$output = $this->plug->on($this->xml);
 
 		//we're expecting xml
 		$this->setHeaders('text/xml');
 		
 		//return the response from the socket
 		return $output;
-	}	
+	}
+
+	public function done() {
+
+		//switch it off, we're done.
+		$this->plug->off();
+	}
 }

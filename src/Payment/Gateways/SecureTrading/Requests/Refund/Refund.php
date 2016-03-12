@@ -101,16 +101,17 @@ class Refund extends Base {
 	private function _getOperationNode() {
 
 		//create the operation nodes
-		$operation 			= new DOMElement('operation');
-		$siteReference 		= new DOMElement('sitereference', $this->siteReference);
-		$accountType		= new DOMElement('accounttypedescription', $this->accountType);
-
+		$operation 					= new DOMElement('operation');
+		$siteReference 				= new DOMElement('sitereference', $this->siteReference);
+		$accountType				= new DOMElement('accounttypedescription', $this->accountType);
+		$parenttransactionreference = new DOMElement('parenttransactionreference');
 		$this->request->appendChild($operation);
 
 
 		//add to billing element
 		$operation->appendChild($siteReference);
 		$operation->appendChild($accountType);
+		$operation->appendChild($parenttransactionreference);
 
 		//return operation
 		return $operation;

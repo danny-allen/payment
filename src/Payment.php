@@ -129,7 +129,14 @@ class Payment {
 			//else return the response
 			return $response;
 		}
+	}
 
+
+	public function done() {
+
+		//make the request to the gatway endpoint.
+		$response = $this->gateway->sendRequest();
+		
 	}
 
 

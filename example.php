@@ -12,7 +12,7 @@
 		$payment = new Payment('SecureTrading');
 
 		//debug mode
-		$payment->debug = true;
+		//$payment->debug = true;
 
 		//configure
 		$payment->setting('alias', 'some-alias');
@@ -33,6 +33,9 @@
 
 		//make request
 		echo $response = $payment->make();
+
+		//close connection - important!
+		$payment->done();
 
 	} catch(Exception $e){
 

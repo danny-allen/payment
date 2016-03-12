@@ -97,8 +97,8 @@ class Refund extends Base {
 		//add child elements of request
 		$this->request->appendChild($operation);
 
-		echo $this->base->saveXML();
-		die();
+		echo $this->base->xml->dom->saveXML();
+		die('worked');
 
 		//save
 		return $this->base;

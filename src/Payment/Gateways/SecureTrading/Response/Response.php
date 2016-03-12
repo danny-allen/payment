@@ -11,7 +11,7 @@ namespace Dao\Payment\Gateways\SecureTrading\Response;
 use Exception;
 use DOMDocument;
 use Dao\Payment\Helpers\Validate;
-use Dao\Payment\Gateways\SecureTrading\Response\Error;
+use Dao\Payment\Gateways\SecureTrading\Response\Errors\Error;
 
 class Response {
 	

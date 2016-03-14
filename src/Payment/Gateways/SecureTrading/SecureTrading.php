@@ -166,9 +166,9 @@ class SecureTrading extends Gateway {
 		$errorCode = 0;
 
 		do{
-			//avoid the first loop, and only runs on 20004 - missing parent or 20005 - parent auth hasn't settled yet
+			//avoid the first loop, and only runs on 20004
 			//ST documentation recommends calling again in a few mins on 20004 error, 10 seconds seems to work
-			if($errorCode == '20004'|| $errorCode == '20005' || $errorCode == '20007'){
+			if($errorCode == '20004'){
 			
 				//wait before trying again
 				sleep(10);
@@ -185,7 +185,7 @@ class SecureTrading extends Gateway {
 				$errorCode = $error->code();
 			}
 		}
-		while($errorCode == '20004' || $errorCode == '20005' || $errorCode == '20007');
+		while($errorCode == '20004');
 
 		//return result
 		return $result;

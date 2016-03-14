@@ -25,10 +25,10 @@
 			'cardType'					=> 'VISA'
 		));
 
-		die();
-
 		//get transaction reference
 		$transactionReference = $auth->transactionReference();
+
+		die();
 
 		//check for error
 		if($error = $auth->error()){

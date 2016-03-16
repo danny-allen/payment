@@ -15,6 +15,7 @@
 
 		//configure
 		$payment->setting('alias', 'test_royalhotel36271');
+		$payment->setting('retryDelay', 15);
 
 		//prepare request, pass in callback to recieve the response.
 		$auth = $payment->request('Auth', array(

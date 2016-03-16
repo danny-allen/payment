@@ -83,6 +83,14 @@ class SecureTrading extends Gateway {
 
 
 	/**
+	 * $alias
+	 *
+	 * The Secure Trading account alias.
+	 */
+	protected $retyDelay = 10;
+
+
+	/**
 	 * $accountType
 	 *
 	 * The default account type.
@@ -126,6 +134,7 @@ class SecureTrading extends Gateway {
 			'apiVersion' 	=> $this->apiVersion,
 			'alias'			=> $this->alias,
 			'accountType'	=> $this->accountType,
+			'retryDelay'	=> $this->retryDelay,
 		);
 	}
 
@@ -171,7 +180,7 @@ class SecureTrading extends Gateway {
 			if($errorCode == '20004'){
 			
 				//wait before trying again
-				sleep(10);
+				sleep($this->settings['retryDelay']);
 			}
 
 			//call parent method with the merged options
@@ -207,6 +216,7 @@ class SecureTrading extends Gateway {
 		$this->validateAccountType();
 		$this->validateSiteReference();
 		$this->validateCurrencyCode();
+		$this->validateRetryDelay();
 	}
 
 
@@ -220,6 +230,10 @@ class SecureTrading extends Gateway {
 		//make sure it's a string
 		Validate::string($this->settings['apiIp'], $this->errorPrefix.'API IP');
 		Validate::ip($this->settings['apiIp'], $this->errorPrefix.'API IP');
+	}
+
+	private function validateRetryDelay() {
+		Validate::int($this->settings['retryDelay']);
 	}
 
 

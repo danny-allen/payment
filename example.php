@@ -33,8 +33,6 @@
 			throw new Exception('Error Code: ' . $error->code() . " - " . $error->message());
 		}
 
-		die('got here');
-
 		//we want an immediate refund on the payment
 		$refund = $payment->request('Refund', array(
 			'amount' => 100,

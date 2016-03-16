@@ -28,8 +28,11 @@
 		//get transaction reference
 		$transactionReference = $auth->transactionReference();
 
+		//find errors
+		$error = $auth->error();
+
 		//check for error
-		if($error = $auth->error()){
+		if($error){
 			throw new Exception('Error Code: ' . $error->code() . " - " . $error->message());
 		}
 
@@ -42,8 +45,11 @@
 		//get transaction reference
 		$transactionReference = $refund->transactionReference();
 
+		//find errors
+		$error = $refund->error();
+
 		//check for error
-		if($error = $refund->error()){
+		if($error){
 			throw new Exception('Error Code: ' . $error->code() . " - " . $error->message());
 		}
 

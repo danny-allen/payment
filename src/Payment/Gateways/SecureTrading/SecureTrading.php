@@ -87,7 +87,7 @@ class SecureTrading extends Gateway {
 	 *
 	 * The Secure Trading account alias.
 	 */
-	protected $retyDelay = 10;
+	protected $retryDelay = 10;
 
 
 	/**

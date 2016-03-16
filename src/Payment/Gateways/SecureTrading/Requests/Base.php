@@ -86,6 +86,14 @@ class Base {
 
 
 	/**
+	 * $retryDelay
+	 *
+	 * Time before retrying a request.
+	 */
+	protected $retryDelay = 10;
+
+
+	/**
 	 * $requestXML
 	 *
 	 * The XML to be returned.

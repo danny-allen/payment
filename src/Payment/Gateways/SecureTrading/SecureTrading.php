@@ -83,9 +83,9 @@ class SecureTrading extends Gateway {
 
 
 	/**
-	 * $alias
+	 * $retryDelay
 	 *
-	 * The Secure Trading account alias.
+	 * Time before retrying a request.
 	 */
 	protected $retryDelay = 10;
 
@@ -161,6 +161,7 @@ class SecureTrading extends Gateway {
 			'apiVersion'		=> $this->apiVersion,
 			'alias'				=> $this->alias,
 			'accountType' 		=> $this->accountType,
+			'retryDelay'		=> $this->retryDelay,
 			'siteReference' 	=> $this->siteReference,
 			'currencyCode'		=> $this->currencyCode,
 		);

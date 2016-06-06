@@ -52,8 +52,9 @@ try {
 	//check for error
 	if($error){
 		throw new Exception('Error Code: ' . $error->code() . " - " . $error->message());
+	}
 
-	} catch(Exception $e){
+} catch(Exception $e){
 
 		//output error
 		echo $e->getMessage();

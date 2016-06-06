@@ -1,6 +1,6 @@
 # payment
 
-Here is an example of how to make a payment:
+Here is an example of how to make a payment and immediatly perform a refund:
 
 ```php		
 //autoloader

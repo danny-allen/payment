@@ -2,7 +2,7 @@
 
 Here is an example of how to make a payment:
 
-		~~~php		
+		```php		
 		//autoloader
 		require_once('vendor/autoload.php');
 
@@ -52,10 +52,10 @@ Here is an example of how to make a payment:
 			//check for error
 			if($error){
 				throw new Exception('Error Code: ' . $error->code() . " - " . $error->message());
-				
+
 			} catch(Exception $e){
 
 				//output error
 				echo $e->getMessage();
 		}
-		~~~
+		```
